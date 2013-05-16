@@ -194,6 +194,7 @@ class sitio_turistico(models.Model):
 	DIRECCION=models.TextField(null=False)
 	CATEGORIA=models.ForeignKey('categoria',null=False)
 	TELEFONOS=models.TextField(null=False)
+	USUARIO=models.ForeignKey(User,unique=True)
 	PUEBLO=models.ForeignKey('pueblo',null=False)
 	LONGITUD=models.CharField(null=False,max_length=10)
 	LATITUD=models.CharField(null=False,max_length=10)
@@ -254,9 +255,8 @@ class curiosidad_idioma(models.Model):
 	class Meta:
 		verbose_name="curiosidad_idioma" #Nombre en singular del modelo
 		verbose_name_plural="curiosidades_idiomas" #Nombre en plural del modelo
-	ID=models.AutoField(primary_key=True, unique=True, null=False)
+	ID=models.AutoField(primary_key=True, null=False)
 	IDIOMA =models.ForeignKey('idioma',null=False)
-	CURIOSIDAD =models.ForeignKey('curiosidad',null=False)
 	TITULO=models.CharField(null=False,max_length=30)
 	DESCRIPCION=models.TextField(null=False)	
 	def __unicode__(self):
@@ -267,4 +267,4 @@ class curiosidad(models.Model):
 		verbose_name="curiosidad" #Nombre en singular del modelo
 		verbose_name_plural="curiosidades " #Nombre en plural del modelo
 	ID=models.AutoField(primary_key=True, null=False)
-	PUEBLO = models.ForeignKey('pueblo',null=False)
+	IDIOMAS=models.ManyToManyField(curiosidad_idioma,null=False)
